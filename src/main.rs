@@ -20,7 +20,27 @@ struct Circle {
     radius: f32,
 }
 
+impl Point {
+    fn new(x: f32, y: f32) -> Point {
+        Point { x, y }
+    }
+}
+
+impl Rectangle {
+    fn area(&self) -> f32 {
+        self.width * self.height
+    }
+
+    fn translate(&mut self, x: f32, y: f32) {
+        self.origin.x += x;
+        self.origin.y += y;
+    }
+}
+
 fn main() {
+
+    let p1 = Point::new(0.0, 0.0);
+    println!("Point - ({}, {})", p1.x, p1.y);
 
     let e1 = Edge{
         p1: Point { x: 0.0, y: 0.0 },
@@ -29,7 +49,7 @@ fn main() {
     println!("{}", e1.p1.x);
     println!("{}", e1.p2.x);
 
-    let r1 = Rectangle{
+    let mut r1 = Rectangle{
         origin: Point { x: 0.0, y: 0.0 },
         width: 10.0,
         height: 10.0,
@@ -37,6 +57,10 @@ fn main() {
     println!("Rectangle - origin: ({}, {})", r1.origin.x, r1.origin.y);
     println!("Rectangle - width: {}", r1.width);
     println!("Rectangle - height: {}", r1.height);
+    println!("Rectangle - area: {}", r1.area());
+
+    r1.translate(2.0, 0.0);
+    println!("Rectangle - translated origin: ({}, {})", r1.origin.x, r1.origin.y);
 
     let c1 = Circle{
         origin: Point { x: 0.0, y: 0.0 },
