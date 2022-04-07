@@ -1,88 +1,91 @@
-use std::f32::consts::PI;
+mod shape {
 
-struct Point {
-    x: f32,
-    y: f32,
-}
+    use std::f32::consts::PI;
 
-struct Edge {
-    p1: Point,
-    p2: Point,
-}
-
-struct Rectangle {
-    origin: Point,
-    width: f32,
-    height: f32,
-}
-
-struct Circle {
-    origin: Point,
-    radius: f32,
-}
-
-fn deg2rad(angle: f32) -> f32 {
-    angle * PI/180.0
-}
-
-impl Point {
-    fn new(x: f32, y: f32) -> Point {
-        Point { x, y }
+    pub struct Point {
+        pub x: f32,
+        pub y: f32,
     }
 
-    fn rotate(&mut self, angle: f32) {
-        let theta = deg2rad(angle);
-        let (x, y) = (self.x, self.y);
-        self.x = x*theta.cos() - y*theta.sin();
-        self.y = y*theta.cos() + x*theta.sin();
+    pub struct Edge {
+        pub p1: Point,
+        pub p2: Point,
     }
 
-    fn translate(&mut self, x: f32, y: f32) {
-        self.x += x;
-        self.y += y;
-    }
-}
-
-impl Rectangle {
-    fn area(&self) -> f32 {
-        self.width * self.height
+    pub struct Rectangle {
+        pub origin: Point,
+        pub width: f32,
+        pub height: f32,
     }
 
-    fn translate(&mut self, x: f32, y: f32) {
-        self.origin.x += x;
-        self.origin.y += y;
-    }
-}
-
-impl Circle {
-    fn area(&self) -> f32 {
-        PI * self.radius.powi(2)
+    pub struct Circle {
+        pub origin: Point,
+        pub radius: f32,
     }
 
-    fn translate(&mut self, x: f32, y: f32) {
-        self.origin.x += x;
-        self.origin.y += y;
+    fn deg2rad(angle: f32) -> f32 {
+        angle * PI/180.0
+    }
+
+    impl Point {
+        pub fn new(x: f32, y: f32) -> Point {
+            Point { x, y }
+        }
+
+        pub fn rotate(&mut self, angle: f32) {
+            let theta = deg2rad(angle);
+            let (x, y) = (self.x, self.y);
+            self.x = x*theta.cos() - y*theta.sin();
+            self.y = y*theta.cos() + x*theta.sin();
+        }
+
+        pub fn translate(&mut self, x: f32, y: f32) {
+            self.x += x;
+            self.y += y;
+        }
+    }
+
+    impl Rectangle {
+        pub fn area(&self) -> f32 {
+            self.width * self.height
+        }
+
+        pub fn translate(&mut self, x: f32, y: f32) {
+            self.origin.x += x;
+            self.origin.y += y;
+        }
+    }
+
+    impl Circle {
+        pub fn area(&self) -> f32 {
+            PI * self.radius.powi(2)
+        }
+
+        pub fn translate(&mut self, x: f32, y: f32) {
+            self.origin.x += x;
+            self.origin.y += y;
+        }
     }
 }
 
 fn main() {
 
-    let mut p1 = Point::new(1.0, 0.0);
+    let mut p1 = shape::Point::new(1.0, 0.0);
     println!("Point - ({}, {})", p1.x, p1.y);
     p1.translate(2.0, 0.0);
     println!("Point - translated origin: ({}, {})", p1.x, p1.y);
     p1.rotate(90.0);
     println!("Point - rotated origin: ({}, {})", p1.x, p1.y);
 
-    let e1 = Edge{
-        p1: Point { x: 0.0, y: 0.0 },
-        p2: Point { x: 1.0, y: 1.0 },
+    let e1 = shape::Edge{
+        p1: shape::Point { x: 0.0, y: 0.0 },
+        p2: shape::Point { x: 1.0, y: 1.0 },
     };
     println!("{}", e1.p1.x);
     println!("{}", e1.p2.x);
-
-    let mut r1 = Rectangle{
-        origin: Point { x: 0.0, y: 0.0 },
+    
+    let mut r1 = shape::Rectangle{
+        origin: shape::Point { x: 0.0, y: 0.0 },
         width: 10.0,
         height: 10.0,
     };
@@ -90,18 +93,18 @@ fn main() {
     println!("Rectangle - width: {}", r1.width);
     println!("Rectangle - height: {}", r1.height);
     println!("Rectangle - area: {}", r1.area());
-
+    
     r1.translate(2.0, 0.0);
     println!("Rectangle - translated origin: ({}, {})", r1.origin.x, r1.origin.y);
-
-    let mut c1 = Circle{
-        origin: Point { x: 0.0, y: 0.0 },
+    
+    let mut c1 = shape::Circle{
+        origin: shape::Point { x: 0.0, y: 0.0 },
         radius: 2.0,
     };
     println!("Circle - origin: ({}, {})", c1.origin.x, c1.origin.y);
     println!("Circle - radius: {}", c1.radius);
     println!("Circle - area: {}", c1.area());
-
+    
     c1.translate(2.0, 0.0);
     println!("Circle - translated origin: ({}, {})", c1.origin.x, c1.origin.y);
 }
