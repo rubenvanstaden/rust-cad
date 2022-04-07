@@ -25,6 +25,11 @@ impl Point {
     fn new(x: f32, y: f32) -> Point {
         Point { x, y }
     }
+
+    fn translate(&mut self, x: f32, y: f32) {
+        self.x += x;
+        self.y += y;
+    }
 }
 
 impl Rectangle {
@@ -51,8 +56,10 @@ impl Circle {
 
 fn main() {
 
-    let p1 = Point::new(0.0, 0.0);
+    let mut p1 = Point::new(0.0, 0.0);
     println!("Point - ({}, {})", p1.x, p1.y);
+    p1.translate(2.0, 0.0);
+    println!("Point - translated origin: ({}, {})", p1.x, p1.y);
 
     let e1 = Edge{
         p1: Point { x: 0.0, y: 0.0 },
