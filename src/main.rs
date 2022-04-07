@@ -21,9 +21,20 @@ struct Circle {
     radius: f32,
 }
 
+fn deg2rad(angle: f32) -> f32 {
+    angle * PI/180.0
+}
+
 impl Point {
     fn new(x: f32, y: f32) -> Point {
         Point { x, y }
+    }
+
+    fn rotate(&mut self, angle: f32) {
+        let theta = deg2rad(angle);
+        let (x, y) = (self.x, self.y);
+        self.x = x*theta.cos() - y*theta.sin();
+        self.y = y*theta.cos() + x*theta.sin();
     }
 
     fn translate(&mut self, x: f32, y: f32) {
@@ -56,10 +67,12 @@ impl Circle {
 
 fn main() {
 
-    let mut p1 = Point::new(0.0, 0.0);
+    let mut p1 = Point::new(1.0, 0.0);
     println!("Point - ({}, {})", p1.x, p1.y);
     p1.translate(2.0, 0.0);
     println!("Point - translated origin: ({}, {})", p1.x, p1.y);
+    p1.rotate(90.0);
+    println!("Point - rotated origin: ({}, {})", p1.x, p1.y);
 
     let e1 = Edge{
         p1: Point { x: 0.0, y: 0.0 },
