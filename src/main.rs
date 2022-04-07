@@ -1,3 +1,4 @@
+use std::f32::consts::PI;
 
 struct Point {
     x: f32,
@@ -37,6 +38,17 @@ impl Rectangle {
     }
 }
 
+impl Circle {
+    fn area(&self) -> f32 {
+        PI * self.radius.powi(2)
+    }
+
+    fn translate(&mut self, x: f32, y: f32) {
+        self.origin.x += x;
+        self.origin.y += y;
+    }
+}
+
 fn main() {
 
     let p1 = Point::new(0.0, 0.0);
@@ -62,10 +74,14 @@ fn main() {
     r1.translate(2.0, 0.0);
     println!("Rectangle - translated origin: ({}, {})", r1.origin.x, r1.origin.y);
 
-    let c1 = Circle{
+    let mut c1 = Circle{
         origin: Point { x: 0.0, y: 0.0 },
         radius: 2.0,
     };
     println!("Circle - origin: ({}, {})", c1.origin.x, c1.origin.y);
     println!("Circle - radius: {}", c1.radius);
+    println!("Circle - area: {}", c1.area());
+
+    c1.translate(2.0, 0.0);
+    println!("Circle - translated origin: ({}, {})", c1.origin.x, c1.origin.y);
 }
