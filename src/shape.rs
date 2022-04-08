@@ -76,9 +76,11 @@ impl Circle {
 #[cfg(test)]
 mod tests {
 
+    use super::*;
+
     #[test]
     fn points() {
-        let mut p1 = super::Point::new(1.0, 0.0);
+        let mut p1 = Point::new(1.0, 0.0);
         assert_eq!(p1.x, 1.0);
         assert_eq!(p1.y, 0.0);
 
@@ -89,5 +91,46 @@ mod tests {
         p1.rotate(90.0);
         assert_eq!(p1.x, 0.0);
         assert_eq!(p1.y, 3.0);
+    }
+
+    #[test]
+    fn edges() {
+        let e1 = Edge{
+            p1: Point { x: 0.0, y: 0.0 },
+            p2: Point { x: 1.0, y: 1.0 },
+        };
+        assert_eq!(e1.p1.x, 0.0);
+        assert_eq!(e1.p1.y, 0.0);
+        assert_eq!(e1.p2.x, 1.0);
+        assert_eq!(e1.p2.y, 1.0);
+    }
+
+    #[test]
+    fn rectanlges() {
+        let mut r1 = Rectangle{
+            origin: Point { x: 0.0, y: 0.0 },
+            width: 10.0,
+            height: 10.0,
+        };
+        assert_eq!(r1.origin.x, 0.0);
+        assert_eq!(r1.origin.y, 0.0);
+
+        r1.translate(2.0, 0.0);
+        assert_eq!(r1.origin.x, 2.0);
+        assert_eq!(r1.origin.y, 0.0);
+    }
+
+    #[test]
+    fn circles() {
+        let mut c1 = Circle{
+            origin: Point { x: 0.0, y: 0.0 },
+            radius: 2.0,
+        };
+        assert_eq!(c1.origin.x, 0.0);
+        assert_eq!(c1.origin.y, 0.0);
+
+        c1.translate(2.0, 0.0);
+        assert_eq!(c1.origin.x, 2.0);
+        assert_eq!(c1.origin.y, 0.0);
     }
 }
